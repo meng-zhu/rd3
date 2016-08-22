@@ -125,7 +125,9 @@
             $final = $final.$place[$x][$y];
             if($y == 9)
             {
-                $final = $final."N";
+                if($x != 9){
+                    $final = $final."N";
+                }
             }
         }
     }
