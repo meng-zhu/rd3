@@ -121,8 +121,9 @@
 
                 if( $check != $num)
                 {
-                    $place[$x][$y] = "<font color='RED'>$check</font>";
-                    $showInfo = "不符合，因為值輸入錯誤，紅色為錯誤的部分";
+                    $place[$x][$y] = "x";
+                    $showInfo = "不符合，因為值輸入錯誤，x為錯誤部分";
+                    // $showInfo = "不符合，因為值輸入錯誤，紅色為錯誤的部分";
                 }
             }
         }
@@ -147,7 +148,6 @@
 
     if($showInfo != "符合。")
     {
-        echo "<br>";
         echo $final;
 
         // echo "<hr>為觀看方便：<br>";
