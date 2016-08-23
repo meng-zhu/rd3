@@ -3,42 +3,43 @@
     $time1 = microtime(true);
 
     $map = $_GET['map'];
-    // $map = '4M4M211111N24MM22M33MN1MM533M3MMN235MM2234MN2M4M433M31N3M65M5MM41N3MMMMMMM4MNM6M5M55M42NMM4333M3M1N3M3M2M2214';
+    // $map = '1111100000N111m101121NM123311M2MN111MM22231N0125M32M20N01M3M33M20N24332M2110NMMM2221000N3433M32210N1M12M3MM10';
     // echo "題目(10*10踩地雷)<br>";
     // echo $map;
     // echo "<hr>";
+    // exit;
+    $showInfo = "";
+    $err = "";
 
-    $showInfo = "符合。";
-
+    /*判斷輸入是否有不該出現的字元*/
+    if (!preg_match("/^([0-9A-Za-z]+)$/", $map)) {
+        $showInfo = "不符合，輸入的字串中有特殊字元";
+        echo $showInfo;
+        exit;
+    }
     /*確認字串長度是否為109*/
     $len = strlen($map);
     if($len != 109)
     {
-        $showInfo = "不符合，因為字符數量不正確，您輸入了".$len."個字符。";
-        echo $showInfo;
-        exit;
+        $showInfo = $showInfo."\n 不符合，因為字符數量不正確，您輸入了".$len."個字符。";
     }
     /*判斷輸入是否符合規則*/
     if (!preg_match("/^([0-8MN]+)$/", $map)) {
-        echo "不符合，因為輸入不符合規則，規定僅能輸入[0-8]/M/N";
-        exit;
+        $showInfo = $showInfo."\n 不符合，因為輸入不符合規則，規定僅能輸入[0-8]/M/N";
+        $map = strtoupper ($map);
     }
     /*確認炸彈數量是否為40*/
     $numBoom = substr_count($map, 'M');
     if($numBoom != 40)
     {
-        $showInfo = "不符合，因為炸彈數量不正確，您設置了".$numBoom."個炸彈。";
-        echo $showInfo;
-        exit;
+        $showInfo = $showInfo."\n 不符合，因為炸彈數量不正確，您設置了".$numBoom."個炸彈。";
     }
 
     /*確認換行數量是否為9*/
     $numN = substr_count($map, 'N');
     if($numN != 9)
     {
-        $showInfo = "不符合，因為換行數量不正確，您共換了".$numN."行。";
-        echo $showInfo;
-        exit;
+        $showInfo = $showInfo."\n 不符合，因為換行數量不正確，您共換了".$numN."行。";
     }
 
     /*確認換行的位置是否正確*/
@@ -51,12 +52,9 @@
         $num = strlen($temp[$i]);
         if($num != 10)
         {
-            $showInfo = "不符合，因為N擺放的位置不正確";
-            echo $showInfo;
-            exit;
+            $showInfo = $showInfo."\n 不符合，因為N擺放的位置不正確";
         }
     }
-
 
 
     /*1維 > 字串 > 2維*/
@@ -126,7 +124,10 @@
 
                 if( $check != $num)
                 {
-                    $showInfo = "不符合，因為值輸入錯誤。\n";
+                    if($showInfo == "")
+                    {
+                        $showInfo = "有錯唷~";
+                    }
                     $err = $err."第".($x*10+$y+1)."個值應為".$num."\n";
                 }
             }
@@ -148,11 +149,17 @@
         }
     }
 
-    if($showInfo !== "符合。")
+    if($showInfo !== "")
     {
-        echo $showInfo.$err;
+        if($err !== "")
+        {
+            $showInfo = $showInfo."\n不符合，因為值輸入錯誤。\n";
+            echo $showInfo.$err;
+        } else {
+            echo $showInfo;
+        }
     }else{
-        echo $showInfo;
+        echo "符合。";
     }
 
     $time2 = microtime(true);
