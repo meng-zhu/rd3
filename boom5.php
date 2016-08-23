@@ -3,7 +3,7 @@
     $time1 = microtime(true);
 
     $map = $_GET['map'];
-    // $map = '9M112MMM20NM532M35M30NMMM2113M41NMM32113MM2NM422M13MM2N13M4334M52N02M4MM3M4MN133M4434M3NM4M5M4M5M3NM4MM3MMM3M';
+    // $map = '4M4M211111N24MM22M33MN1MM533M3MMN235MM2234MN2M4M433M31N3M65M5MM41N3MMMMMMM4MNM6M5M55M42NMM4333M3M1N3M3M2M2214';
     // echo "題目(10*10踩地雷)<br>";
     // echo $map;
     // echo "<hr>";
@@ -20,8 +20,8 @@
     }
     /*判斷輸入是否符合規則*/
     if (!preg_match("/^([0-8MN]+)$/", $map)) {
-     echo "不符合，因為輸入不符合規則，規定僅能輸入[0-8]/M/N";
-     exit;
+        echo "不符合，因為輸入不符合規則，規定僅能輸入[0-8]/M/N";
+        exit;
     }
     /*確認炸彈數量是否為40*/
     $numBoom = substr_count($map, 'M');
@@ -126,9 +126,8 @@
 
                 if( $check != $num)
                 {
-                    $place[$x][$y] = "x";
-                    $showInfo = "不符合，因為值輸入錯誤，x為錯誤部分";
-                    // $showInfo = "不符合，因為值輸入錯誤，紅色為錯誤的部分";
+                    $showInfo = "不符合，因為值輸入錯誤。\n";
+                    $err = $err."第".($x*10+$y+1)."個值應為".$num."\n";
                 }
             }
         }
@@ -149,24 +148,11 @@
         }
     }
 
-    // echo $showInfo;
-
     if($showInfo !== "符合。")
     {
-        echo $showInfo."： ".$final;
-
-        // echo "<hr>為觀看方便：<br>";
-        // foreach($place as $key){
-        //     foreach($key as $value)
-        //     {
-        //         echo $value." ";
-        //     }
-        //     echo "<br>";
-        // }
+        echo $showInfo.$err;
     }else{
         echo $showInfo;
     }
 
     $time2 = microtime(true);
-    // echo "<hr>執行時間<br>";
-    // echo $time2-$time1;
