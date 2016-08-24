@@ -2,17 +2,18 @@
     header("Content-Type:text/html; charset=utf-8");
     $time1 = microtime(true);
 
-    $map = $_GET['map'];
-    // $map = '1111100000N111m101121NM123311M2MN111MM22231N0125M32M20N01M3M33M20N24332M2110NMMM2221000N3433M32210N1M12M3MM10';
-    // echo "題目(10*10踩地雷)<br>";
-    // echo $map;
-    // echo "<hr>";
-    // exit;
+    // $map = $_GET['map'];
+    $map = '1111100000N111m101121NM123311M2MN111MM22231N0125M32M20N01M3M33M20N24332M2110NMMM2221000N3433M32210N1M12M3MM10';
+    echo "題目(10*10踩地雷)<br>";
+    echo $map;
+    echo "<hr>";
+    exit;
     $showInfo = "";
     $err = "";
 
     /*判斷輸入是否有不該出現的字元*/
-    if (!preg_match("/^([0-9A-Za-z]+)$/", $map)) {
+    if (!preg_match("/^([0-9A-Za-z]+)$/", $map))
+    {
         $showInfo = "不符合，輸入的字串中有特殊字元";
         echo $showInfo;
         exit;
